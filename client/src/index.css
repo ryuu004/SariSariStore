@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Fonts */
+@layer base {
+  :root {
+    --card-bg: 255 255 255;
+    --card-border: 229 231 235; /* gray-200 */
+    --surface: 249 250 251; /* gray-50 */
+  }
+
+  html {
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  body {
+    @apply bg-[rgb(var(--surface))] text-gray-800 font-sans antialiased;
+  }
+
+  h1 {
+    @apply font-display font-extrabold tracking-tight text-gray-900;
+  }
+  h2 {
+    @apply font-display font-bold tracking-tight text-gray-900;
+  }
+  h3, h4, h5, h6 {
+    @apply font-display font-semibold text-gray-900;
+  }
+  p {
+    @apply text-gray-600;
+  }
+}
+
+/* Components */
+@layer components {
+  .card {
+    @apply rounded-2xl border border-gray-200 bg-white shadow-soft;
+  }
+  .card-hover {
+    @apply transition-shadow hover:shadow-elevated;
+  }
+  .card-padding {
+    @apply p-5 sm:p-6;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 font-semibold transition shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-primary {
+    @apply bg-brand-600 text-white hover:bg-brand-700;
+  }
+  .btn-ghost {
+    @apply bg-white text-gray-700 border border-gray-200 hover:bg-gray-50;
+  }
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium ring-1 ring-inset;
+  }
+  .badge-success {
+    @apply bg-green-50 text-green-700 ring-green-200;
+  }
+  .badge-danger {
+    @apply bg-red-50 text-red-700 ring-red-200;
+  }
+}
