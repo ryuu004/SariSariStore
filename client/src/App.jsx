@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Inventory from './pages/Inventory';
+import MobileTabBar from './components/MobileTabBar.jsx';
 
 function App() {
   return (
@@ -18,12 +19,15 @@ function App() {
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 overflow-x-hidden overflow-y-auto">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto pb-20 sm:pb-0">
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/inventory" element={<Inventory />} />
           </Routes>
         </main>
+
+        {/* Mobile bottom tabs */}
+        <MobileTabBar />
       </div>
     </Router>
   );

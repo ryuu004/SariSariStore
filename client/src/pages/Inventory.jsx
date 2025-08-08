@@ -3,7 +3,7 @@ import { PlusIcon, MagnifyingGlassIcon, FunnelIcon } from '@heroicons/react/24/o
 import AddProductForm from '../components/AddProductForm';
 import ProductList from '../components/ProductList';
 import CategorySidebar from '../components/CategorySidebar'; // Import CategorySidebar
-import { fetchProducts, deleteProduct } from '../services/api';
+import { fetchProducts, deleteProduct, fetchCategories } from '../services/api';
 
 function Inventory() {
   const [products, setProducts] = useState([]);
@@ -12,6 +12,7 @@ function Inventory() {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortConfig, setSortConfig] = useState({ key: 'name', direction: 'ascending' });
   const [selectedCategory, setSelectedCategory] = useState('All'); // New state for selected category
+  const [availableCategories, setAvailableCategories] = useState([]); // for mobile dropdown
 
   const loadProducts = async (category = 'All') => {
     try {
@@ -33,6 +34,21 @@ function Inventory() {
   useEffect(() => {
     loadProducts(selectedCategory); // Load products based on selected category
   }, [selectedCategory, sortConfig.key, categoryRefreshKey]); // Re-fetch when selectedCategory, sortConfig.key, or categoryRefreshKey changes
+
+  // Fetch categories for mobile dropdown
+  useEffect(() => {
+    const getCategories = async () => {
+      try {
+        const response = await fetchCategories();
+        let uniqueCategories = response.data.map((cat) => cat.trim().toLowerCase());
+        uniqueCategories = [...new Set(uniqueCategories)].sort((a, b) => a.localeCompare(b));
+        setAvailableCategories(uniqueCategories);
+      } catch (err) {
+        console.error('Failed to fetch categories for mobile:', err);
+      }
+    };
+    getCategories();
+  }, [categoryRefreshKey]);
 
   const handleAddOrUpdateProduct = () => {
     loadProducts(selectedCategory); // Reload products for the current category
@@ -93,13 +109,13 @@ function Inventory() {
   };
 
   return (
-    <div className="container py-10">
+    <div className="container pt-10 pb-24 safe-bottom">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6">
         <div>
           <h1 className="text-3xl">Inventory</h1>
           <p className="mt-1 text-gray-600">Manage your products and track stock levels.</p>
         </div>
-        <div className="flex w-full sm:w-auto items-center gap-3">
+        <div className="flex w-full flex-col sm:flex-row items-stretch sm:items-center gap-3 min-w-0">
           <div className="relative w-full sm:w-80">
             <MagnifyingGlassIcon className="h-5 w-5 text-gray-400 absolute top-1/2 left-3 -translate-y-1/2" />
             <input
@@ -110,9 +126,24 @@ function Inventory() {
               className="w-full p-2 pl-10 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-brand-500"
             />
           </div>
+          {/* Mobile category dropdown */}
+          <div className="sm:hidden">
+            <select
+              value={selectedCategory}
+              onChange={(e) => handleSelectCategory(e.target.value)}
+              className="w-full rounded-md border border-gray-300 bg-white p-2 text-sm"
+            >
+              <option value="All">All categories</option>
+              {availableCategories.map((c) => (
+                <option key={c} value={c} className="capitalize">
+                  {c}
+                </option>
+              ))}
+            </select>
+          </div>
           <button
             onClick={handleAddNewProduct}
-            className="btn btn-primary"
+            className="btn btn-primary w-full sm:w-auto whitespace-nowrap shrink-0"
           >
             <PlusIcon className="h-5 w-5 mr-2" />
             Add Product
@@ -136,23 +167,25 @@ function Inventory() {
         </div>
       </div>
 
-      <div className="flex">
+      <div className="flex flex-col lg:flex-row gap-6">
         {/* Category Sidebar */}
-        <CategorySidebar
-          onSelectCategory={handleSelectCategory}
-          selectedCategory={selectedCategory}
-          refreshTrigger={categoryRefreshKey}
-        />
+        <div className="hidden lg:block">
+          <CategorySidebar
+            onSelectCategory={handleSelectCategory}
+            selectedCategory={selectedCategory}
+            refreshTrigger={categoryRefreshKey}
+          />
+        </div>
 
         {/* Product List */}
-        <div className="flex-1 ml-6">
+        <div className="flex-1">
           {/* Sort controls */}
-          <div className="flex items-center justify-between mb-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
             <div className="inline-flex items-center gap-2 text-gray-600">
               <FunnelIcon className="h-5 w-5" />
               <span className="text-sm">Sort by:</span>
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-nowrap gap-2 overflow-x-auto whitespace-nowrap pb-1 px-1">
               <button
                 onClick={() => requestSort('name')}
                 className={`px-3 py-1.5 rounded-md text-sm border ${sortConfig.key === 'name' ? 'bg-brand-50 text-brand-700 border-brand-200' : 'bg-white text-gray-700 border-gray-200 hover:bg-gray-50'}`}

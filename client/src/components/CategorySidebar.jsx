@@ -22,7 +22,7 @@ const CategorySidebar = ({ onSelectCategory, selectedCategory, refreshTrigger })
   }, [refreshTrigger]); // Re-fetch categories when refreshTrigger changes
 
   return (
-    <div className="w-64 card p-4">
+      <div className="w-full lg:w-64 card p-4">
       <h3 className="text-lg mb-4">Categories</h3>
       <ul>
         <li

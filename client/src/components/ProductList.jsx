@@ -14,7 +14,7 @@ const ProductList = ({ products, onEdit, onDelete, onSort, sortConfig }) => {
 
   if (!products || products.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-white py-16">
+      <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-white py-12 sm:py-16 text-center px-4">
         <PhotoIcon className="h-12 w-12 text-gray-300" />
         <p className="mt-4 text-gray-600">No products found. Try adding a new product or adjusting your search.</p>
       </div>
@@ -22,7 +22,7 @@ const ProductList = ({ products, onEdit, onDelete, onSort, sortConfig }) => {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
       {products.map((product) => (
         <div key={product._id} className="group card card-padding card-hover">
           <div className="flex items-start justify-between">

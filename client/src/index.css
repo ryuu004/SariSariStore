@@ -61,4 +61,8 @@
   .badge-danger {
     @apply bg-red-50 text-red-700 ring-red-200;
   }
+  /* Safe area helper for iOS bottom insets */
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
 }

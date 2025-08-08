@@ -20,22 +20,22 @@ export default function Dashboard() {
           className="absolute inset-0 h-full w-full object-cover opacity-70"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-gray-900/70 via-gray-900/60 to-gray-900/80" />
-        <div className="relative z-10 container py-20 lg:py-28">
+        <div className="relative z-10 container py-16 sm:py-20 lg:py-28">
           <div className="max-w-3xl text-white">
-            <h1 className="text-4xl sm:text-5xl text-white leading-tight">SariSari IMS</h1>
-            <p className="mt-4 text-lg sm:text-xl text-white/85">
+            <h1 className="text-3xl sm:text-5xl text-white leading-tight">SariSari IMS</h1>
+            <p className="mt-3 text-base sm:text-xl text-white/85">
               Simple, fast, and intuitive inventory management tailored for sari-sari stores. Track stock, get low-stock alerts, and keep your mini-store running smoothly.
             </p>
-            <div className="mt-8 flex flex-col sm:flex-row gap-3">
+            <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3">
               <Link
                 to="/inventory"
-                className="btn btn-primary px-5 py-3"
+                className="btn btn-primary px-5 py-3 w-full sm:w-auto"
               >
                 Start Managing Inventory
               </Link>
               <a
                 href="#features"
-                className="btn btn-ghost bg-white/10 text-white border-transparent hover:bg-white/20 px-5 py-3 backdrop-blur"
+                className="btn btn-ghost bg-white/10 text-white border-transparent hover:bg-white/20 px-5 py-3 backdrop-blur w-full sm:w-auto text-center"
               >
                 Explore Features
               </a>
@@ -105,16 +105,16 @@ export default function Dashboard() {
       <section className="container py-14">
         <div className="relative overflow-hidden rounded-2xl bg-brand-600 text-white">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_10%,rgba(255,255,255,0.2),transparent_40%),radial-gradient(circle_at_80%_50%,rgba(255,255,255,0.2),transparent_40%)]" />
-          <div className="relative p-8 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+          <div className="relative p-6 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
             <div>
-              <h3 className="text-2xl">Ready to tidy up your inventory?</h3>
+              <h3 className="text-xl sm:text-2xl">Ready to tidy up your inventory?</h3>
               <p className="mt-2 text-white/90 flex items-center gap-2">
                 <CheckCircleIcon className="h-5 w-5" /> No sign-up needed locally. Start now.
               </p>
             </div>
             <Link
               to="/inventory"
-              className="btn bg-white text-brand-700 hover:bg-white px-5 py-3"
+              className="btn bg-white text-brand-700 hover:bg-white px-5 py-3 w-full sm:w-auto"
             >
               Go to Inventory
             </Link>
