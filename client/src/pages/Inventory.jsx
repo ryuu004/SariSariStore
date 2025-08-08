@@ -115,7 +115,7 @@ function Inventory() {
           <h1 className="text-3xl">Inventory</h1>
           <p className="mt-1 text-gray-600">Manage your products and track stock levels.</p>
         </div>
-        <div className="flex w-full flex-col sm:flex-row items-stretch sm:items-center gap-3 min-w-0">
+        <div className="flex w-full sm:w-auto sm:ml-auto flex-col sm:flex-row items-stretch sm:items-center gap-3 min-w-0">
           <div className="relative w-full sm:w-80">
             <MagnifyingGlassIcon className="h-5 w-5 text-gray-400 absolute top-1/2 left-3 -translate-y-1/2" />
             <input
